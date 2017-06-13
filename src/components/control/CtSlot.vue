@@ -1,20 +1,15 @@
 <template>
-  <div id="ctLabel">
+  <div class="slot">
     <el-form  ref="form" label-width="100px">
       <div class="info" @mouseenter="change" @mouseleave="ret">
         控件使用说明
-
         <ul v-show="bur===1">
-          <li>1.可通过调整控件长度控制所选组件长度</li>
-          <li>2.标签名称字数限制最大为20个字</li>
-        </ul>
+        <li>1.可通过调整控件长度控制所选组件长度</li>
+        <li>2.占位框为用户想两个表单组件长度很短但也独占一行时，可在后面添加占位框来达到效果</li>
+      </ul>
       </div>
-
       <el-form-item label="控件长度">
         <el-input-number v-model="longer" :min="2" :max="24"></el-input-number>
-      </el-form-item>
-      <el-form-item label="标签名称">
-        <el-input :maxlength="20" v-model="label"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -48,19 +43,6 @@
           this.$store.commit({
             type:"updateValue",
             ele:"longer",
-            value:value,
-            index:this.serial
-          })
-        }
-      },
-      label: {
-        get () {
-          return this.$store.state.design.componentList2[this.serial].label
-        },
-        set (value) {
-          this.$store.commit({
-            type:"updateValue",
-            ele:"label",
             value:value,
             index:this.serial
           })

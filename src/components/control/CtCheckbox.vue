@@ -1,9 +1,9 @@
 <template>
   <div id="ctLabel">
-    <el-form v-model="form"  ref="form" label-width="100px">
+    <el-form  label-width="100px">
           <div class="info" @mouseenter="change" @mouseleave="ret">
             控件使用说明
-            <ul v-show="form.bur===1">
+            <ul v-show="bur===1">
               <li>1.可通过调整控件长度控制所选组件长度</li>
             <li>2.用户可自定义复选框的值</li>
             <li>3.每一行为复选框的一个选项，点击确定按钮生成所有选项</li>
@@ -11,10 +11,10 @@
           </div>
 
       <el-form-item label="控件长度">
-        <el-input-number  v-model="form.num" :min="2" :max="24"></el-input-number>
+        <el-input-number  v-model="longer" :min="2" :max="24"></el-input-number>
       </el-form-item>
       <el-form-item label="复选框的值">
-        <el-input type="textarea" :autosize="{minRows:2}" v-model="form.textArray" ></el-input>
+        <el-input type="textarea" :autosize="{minRows:2}" v-model="textArray" ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getArray">确定</el-button>
@@ -27,32 +27,78 @@
   export default {
     data () {
       return {
-        form:{
           bur:-1,
-          num:8,
-          place:"复选",
-          textArray:"一行"+"\n"
-          +"一个选项",
-          items:[]
-        }
       }
     },
     methods:{
       change(){
-        this.form.bur=1
+        this.bur=1
       },
       ret(){
-        this.form.bur=-1
+        this.bur=-1
       },
       getArray(){
-        let str=this.form.textArray.replace(/\n[\s| ]*/g,"\n")
+        let str=this.$store.state.design.componentList2[this.serial].textArray.replace(/\n[\s| ]*/g,"\n")
+        //去除字符串空格，并赋值个输入框
         let str2=str.trim()
-        this.form.items =str2.split("\n");
+        this.$store.commit({
+          type:"updateValue",
+          ele:"textArray",
+          value:str2,
+          index:this.serial
+        })
+        //将去除空格后的字符串切成数组并绑定到状态树
+        let str3=str2.split("\n");
+        this.$store.commit({
+          type:"updateValue",
+          ele:"items",
+          value:str3,
+          index:this.serial
+        })
       }
-    },mounted(){
-      let str=this.form.textArray.replace(/\n[\s| ]*/g,"\n")
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
+      },
+      longer:{
+        get () {
+          return this.$store.state.design.componentList2[this.serial].longer
+        },
+        set (value) {
+          this.$store.commit({
+            type:"updateValue",
+            ele:"longer",
+            value:value,
+            index:this.serial
+          })
+        }
+      },
+      textArray:{
+        get () {
+          return this.$store.state.design.componentList2[this.serial].textArray
+        },
+        set (value) {
+          this.$store.commit({
+            type:"updateValue",
+            ele:"textArray",
+            value:value,
+            index:this.serial
+          })
+        }
+      }
+    },
+    mounted(){
+      let str=this.$store.state.design.componentList2[this.serial].textArray.replace(/\n[\s| ]*/g,"\n")
       let str2=str.trim()
-      this.form.items=str2.split("\n");
+      let str3=str2.split("\n");
+      this.$store.commit({
+        type:"updateValue",
+        ele:"items",
+        value:str3,
+        index:this.serial
+      })
     }
   }
 </script>

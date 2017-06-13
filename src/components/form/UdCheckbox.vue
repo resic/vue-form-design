@@ -1,9 +1,9 @@
 <template>
   <div class="udCheckbox">
- <el-col :span="8">
-   <div class="cover" @click="showControl"></div>
-   <el-checkbox-group v-model="checkList">
-     <el-checkbox v-for="(item,index) in items" :key="index"  :label="item"></el-checkbox>
+ <el-col :span="design.componentList2[serial].longer">
+   <div class="cover"></div>
+   <el-checkbox-group v-model="design.componentList2[serial].checkList">
+     <el-checkbox v-for="(item,index) in design.componentList2[serial].items" :key="index"  :label="item"></el-checkbox>
    </el-checkbox-group>
  </el-col>
   </div>
@@ -13,14 +13,15 @@
   export default {
     data () {
       return {
-        checkList:["选项一"],
-        items:["选项一","选项二","选项三"]
       }
     },
     methods:{
-    showControl(){
-      //显示相应的控件设置
-    }
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
+      }
     }
 
   }

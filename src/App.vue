@@ -104,7 +104,7 @@ export default {
   font-weight: 700;
 }
   .el-col{
-    min-height: 36px;
+    min-height: 39px;
     border: 1px dashed #999;
     border-radius: 5px;
     position: relative;

@@ -1,8 +1,8 @@
 <template>
   <div class="udText">
-    <el-col :span="20">
+    <el-col :span="design.componentList2[serial].longer">
       <div class="cover"></div>
-      <el-input :maxlength="50" placeholder="单行文本框"></el-input>
+      <el-input :maxlength="50" :placeholder="design.componentList2[serial].place"></el-input>
     </el-col>
   </div>
 </template>
@@ -13,6 +13,13 @@
       return {}
     },
     methods:{
+
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
+      }
 
     }
   }

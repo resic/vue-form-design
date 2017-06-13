@@ -1,9 +1,9 @@
 <template>
   <div class="udRadio">
-  <el-col :span="8">
-    <div class="cover" @click="showControl"></div>
-    <el-radio-group v-model="radio"  >
-      <el-radio v-for="(item,index) in items" :key="index" :label="item" >{{item}}</el-radio>
+  <el-col :span="design.componentList2[serial].longer">
+    <div class="cover"></div>
+    <el-radio-group v-model="design.componentList2[serial].radio"  >
+      <el-radio v-for="(item,index) in design.componentList2[serial].items" :key="index" :label="item" >{{item}}</el-radio>
     </el-radio-group>
   </el-col>
   </div>
@@ -13,13 +13,14 @@
   export default {
     data () {
       return {
-        radio:"男",
-        items:["男","女"]
       }
     },
     methods:{
-      showControl(){
-        //显示相应的控件设置
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
       }
     }
   }

@@ -1,9 +1,9 @@
 <template>
   <div class="udLabel">
 
-    <el-col :span="8">
+    <el-col :span="design.componentList2[serial].longer">
       <div class="cover"></div>
-      <div class="label" v-html="label"></div>
+      <div class="label" v-html="design.componentList2[serial].label"></div>
     </el-col>
 
   </div>
@@ -13,11 +13,17 @@
   export default {
     data () {
       return {
-        label: "一二："
+      }
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
       }
     },
     methods:{
-    }
+    },
+
   }
 </script>
 <style scoped>

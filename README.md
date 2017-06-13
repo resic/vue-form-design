@@ -1,6 +1,9 @@
-# test02
+# formDesign
 
-> A Vue.js project
+### A vue project
+- based on vue,element-ui
+- Ready to use vuex do state management
+- Drag and drop events is still a complex problem
 
 ## Build Setup
 

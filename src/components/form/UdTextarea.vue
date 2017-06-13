@@ -1,8 +1,8 @@
 <template>
   <div class="udTextarea">
-   <el-col :span="8">
+   <el-col :span="design.componentList2[serial].longer">
      <div class="cover"></div>
-     <el-input type="textarea" :autosize="{minRows:2}" placeholder="多行文本框"></el-input>
+     <el-input type="textarea" :autosize="{minRows:3}" :placeholder="design.componentList2[serial].place"></el-input>
    </el-col>
   </div>
 </template>
@@ -14,6 +14,12 @@
       }
     },
     methods:{
+    },
+    props:["serial"],
+    computed:{
+      design(){
+        return this.$store.state.design
+      }
     }
   }
 </script>
