@@ -3,28 +3,22 @@
     <div class="header">
       <div class="title">睿达智能</div>
     </div>
-  <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-
-    }
-  },
-  methods:{
-
-  },
-  components:{
-
+  export default {
+    name: 'app',
+    data () {
+      return {}
+    },
+    methods: {},
+    components: {}
   }
-}
 </script>
 
-<style >
+<style>
   body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;
@@ -85,6 +79,7 @@ export default {
     height: 100%;
   }
 
+  /*左右浮动类名*/
   .fl {
     float: left;
   }
@@ -92,21 +87,38 @@ export default {
   .fr {
     float: right;
   }
-.header{
-  width: 100%;
-  background-color: #199F93;
-}
-.title{
-  height: 80px;
-  line-height: 80px;
-  font-size: 30px;
-  color: #fff;
-  font-weight: 700;
-}
-  .el-col{
-    min-height: 39px;
+
+  /*文档对齐方式类名*/
+  .tl {
+    text-align: left;
+  }
+
+  .tc {
+    text-align: center;
+  }
+
+  .tr {
+    text-align: right;
+  }
+
+  .header {
+    width: 100%;
+    background-color: #199F93;
+  }
+
+  .title {
+    height: 80px;
+    line-height: 80px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .el-col {
+    min-height: 59px;
     border: 1px dashed #999;
     border-radius: 5px;
+    padding: 10px;
     position: relative;
   }
 </style>

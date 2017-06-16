@@ -1,23 +1,30 @@
 <template>
-  <div id="ctLabel">
+  <div class="ctRadio">
     <el-form  label-width="100px">
           <div class="info" @mouseenter="change" @mouseleave="ret">
             控件使用说明
             <ul v-show="bur===1">
               <li>1.可通过调整控件长度控制所选组件长度</li>
-              <li>2.用户可自定义单选框的值</li>
-              <li>3.输入框每一行为单选框的一个选项，点击确定按钮生成所有选项</li>
+            <li>2.标识名称为控件所代表的的意义，比如电话，邮箱，性别等等，若前方有label标签则建议与label标签一致</li>
+              <li>3.用户可自定义单选框的值</li>
+              <li>4.输入框每一行为单选框的一个选项，点击确定按钮生成所有选项</li>
             </ul>
           </div>
 
       <el-form-item label="控件长度">
         <el-input-number  v-model="longer" :min="2" :max="24"></el-input-number>
       </el-form-item>
+      <el-form-item label="标识名称">
+        <el-input v-model="marks"></el-input>
+      </el-form-item>
       <el-form-item label="单选框的值">
         <el-input type="textarea" :autosize="{minRows:2}" v-model="textArray" ></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button @click="getArray">确定</el-button>
+      <el-form-item label="生成选项">
+        <el-button type="info" @click="getArray">确定</el-button>
+      </el-form-item>
+      <el-form-item label="删除组件">
+        <el-button type="danger"  @click="removeComponent">删除</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -55,6 +62,12 @@
           value:str3,
           index:this.serial
         })
+      },
+      removeComponent(){
+        this.$store.commit({
+          type: "removeArray",
+          index: this.serial
+        })
       }
     },
   props:["serial"],
@@ -70,6 +83,19 @@
         this.$store.commit({
           type:"updateValue",
           ele:"longer",
+          value:value,
+          index:this.serial
+        })
+      }
+    },
+    marks:{
+      get(){
+        return this.$store.state.design.componentList2[this.serial].marks
+      },
+      set(value){
+        this.$store.commit({
+          type:"updateValue",
+          ele:"marks",
           value:value,
           index:this.serial
         })
@@ -105,7 +131,7 @@
 .info{
   background-color: #dff0d8;
   color: #3c763d;
-  margin:10px;
+  margin:10px 0;
   padding: 5px 10px;
   overflow: hidden;
   box-sizing: border-box;

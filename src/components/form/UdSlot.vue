@@ -1,7 +1,7 @@
 <template>
   <div class="slot">
     <el-col :span="design.componentList2[serial].longer">
-      <div class="cover"></div>
+      <div class="cover" :serial="serial" title="点击设置控件信息"></div>
     </el-col>
   </div>
 </template>
@@ -24,6 +24,9 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    top:0;
+    left: 0;
+    cursor: pointer;
     z-index: 10;
   }
 

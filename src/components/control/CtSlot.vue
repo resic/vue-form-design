@@ -11,6 +11,9 @@
       <el-form-item label="控件长度">
         <el-input-number v-model="longer" :min="2" :max="24"></el-input-number>
       </el-form-item>
+      <el-form-item label="删除组件">
+        <el-button type="danger"  @click="removeComponent">删除</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -28,6 +31,12 @@
       },
       ret(){
         this.bur = -1
+      },
+      removeComponent(){
+        this.$store.commit({
+          type: "removeArray",
+          index: this.serial
+        })
       }
     },
     props: ["serial"],
@@ -56,7 +65,7 @@
   .info {
     background-color: #dff0d8;
     color: #3c763d;
-    margin: 10px;
+    margin: 10px 0;
     padding: 5px 10px;
     overflow: hidden;
     box-sizing: border-box;

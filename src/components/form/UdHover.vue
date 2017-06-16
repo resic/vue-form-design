@@ -16,7 +16,7 @@
 <style scoped>
 .content{
   width: 100%;
-  height: 38px;
+  height: 60px;
   border: 2px dashed red;
   box-sizing: border-box;
 }

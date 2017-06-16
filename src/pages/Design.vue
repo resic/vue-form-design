@@ -4,40 +4,50 @@
     <div class="components fl" id="components">
       <div class="caption">表单控件</div>
       <div class="content clearfix">
-        <div class="item" v-for="(item,index) in design.componentList1" :draggable="true" :componentKey="item.componentKey">
+        <div class="item" v-for="(item,index) in design.componentList1"  :draggable="true" v-drag :componentKey="item.componentKey">
           <span v-html="item.name"></span>
           <i :class="item.classI"></i>
         </div>
-      </div>
+       </div>
     </div>
     <!--自定义表单盒子-->
     <div class="build fl" @click="hideControl">
-      <div id="formDesign">
-        <div class="formName">表单标题</div>
-        <div v-for="(list,index) in design.componentList2" @click="showControl(index)">
-          <ud-hover v-if="list.componentKey==='hover'"></ud-hover>
-          <ud-slot :serial='index' v-if="list.componentKey==='slot'"></ud-slot>
-          <ud-label :serial='index' v-if="list.componentKey==='label'"></ud-label>
-          <ud-text :serial='index' v-if="list.componentKey==='text'"></ud-text>
-          <ud-textarea :serial='index' v-if="list.componentKey==='textarea'"></ud-textarea>
-          <ud-radio :serial='index' v-if="list.componentKey==='radio'"></ud-radio>
-          <ud-checkbox :serial='index' v-if="list.componentKey==='checkbox'"></ud-checkbox>
+      <div id="formDesign" >
+        <div class="formHeader" @click="showControl(0)">
+          <div :class="formNameObj" v-html="design.componentList2[0].formName"></div>
+          <div :class="formDescObj" v-html="design.componentList2[0].formDesc"></div>
         </div>
+        <draggable  :options="{
+      group:'formDesign'
+        }" class="dragArea">
+        <div  v-for="(list,index) in design.componentList2" @click="showControl(index)">
+          <ud-hover v-if="list.componentKey==='hover'"></ud-hover>
+          <ud-slot :serial='index' :id="index" v-if="list.componentKey==='slot'"></ud-slot>
+          <ud-label :serial='index' :id="index" v-if="list.componentKey==='label'"></ud-label>
+          <ud-text :serial='index' :id="index" v-if="list.componentKey==='text'"></ud-text>
+          <ud-textarea :serial='index' :id="index" v-if="list.componentKey==='textarea'"></ud-textarea>
+          <ud-radio :serial='index' :id="index" v-if="list.componentKey==='radio'"></ud-radio>
+          <ud-checkbox :serial='index':id="index"  v-if="list.componentKey==='checkbox'"></ud-checkbox>
+        </div>
+        </draggable>
       </div>
     </div>
+    <!--右侧控件信息盒子-->
     <div class="control fl" id="control">
       <div class="caption">控件设置</div>
-      <div class="null" v-show="design.showNum===-1">
-        <i class="el-icon-information"></i>请选择控件
-
+      <div class="control-content">
+        <div class="null" v-show="design.showNum===-1">
+          <i class="el-icon-information"></i>请选择控件
       </div>
-      <div v-for="(item,index) in design.componentList2" v-show="design.showNum===index">
-        <ct-slot :serial="index" v-if="item.componentKey==='slot'"></ct-slot>
-        <ct-label :serial="index" v-if="item.componentKey==='label'"></ct-label>
-        <ct-text :serial="index" v-if="item.componentKey==='text'"></ct-text>
-        <ct-textarea :serial="index" v-if="item.componentKey==='textarea'"></ct-textarea>
-        <ct-radio :serial="index" v-if="item.componentKey==='radio'"></ct-radio>
-        <ct-checkbox :serial="index" v-if="item.componentKey==='checkbox'"></ct-checkbox>
+        <div v-for="(item,index) in design.componentList2" v-show="design.showNum===index">
+          <ct-header :serial="index" v-if="item.componentKey==='header'"></ct-header>
+          <ct-slot :serial="index" v-if="item.componentKey==='slot'"></ct-slot>
+          <ct-label :serial="index" v-if="item.componentKey==='label'"></ct-label>
+          <ct-text :serial="index" v-if="item.componentKey==='text'"></ct-text>
+          <ct-textarea :serial="index" v-if="item.componentKey==='textarea'"></ct-textarea>
+          <ct-radio :serial="index" v-if="item.componentKey==='radio'"></ct-radio>
+          <ct-checkbox :serial="index" v-if="item.componentKey==='checkbox'"></ct-checkbox>
+        </div>
       </div>
     </div>
   </div>
@@ -61,16 +71,38 @@
   import CtRadio from "@/components/control/CtRadio.vue"
   import CtCheckbox from "@/components/control/CtCheckbox.vue"
   import CtSlot from "@/components/control/CtSlot.vue"
+  import CtHeader from "@/components/control/CtHeader.vue"
 
+  //引入拖拽组件
+  import Draggable from "vuedraggable"
   export default {
     name: 'design',
     data () {
-      return {}
+      return {
+
+      }
     },
     computed: {
       design(){
         return this.$store.state.design
+      },
+      formNameObj(){
+        return{
+          formName:true,
+          tl:this.$store.state.design.componentList2[0].formNamePlace==="tl",
+          tc:this.$store.state.design.componentList2[0].formNamePlace==="tc",
+          tr:this.$store.state.design.componentList2[0].formNamePlace==="tr"
+        }
+      },
+      formDescObj(){
+        return{
+          formDesc:true,
+          tl:this.$store.state.design.componentList2[0].formDescPlace==="tl",
+          tc:this.$store.state.design.componentList2[0].formDescPlace==="tc",
+          tr:this.$store.state.design.componentList2[0].formDescPlace==="tr"
+        }
       }
+
     },
     methods: {
       /**
@@ -86,7 +118,7 @@
        * 点击表单设计页面空白部分绑定的事件，隐藏所有控件信息
        * */
       hideControl(event){
-        if (event.target.id === "formDesign") {   //如果点击的是表单设计页面中的空白部分，则没有控件设置信息显示
+        if (event.target.className === "dragArea") {   //如果点击的是表单设计页面中的空白部分，则没有控件设置信息显示
           this.$store.commit("hideControl");
         }
       }
@@ -104,7 +136,9 @@
       CtTextarea,
       CtRadio,
       CtCheckbox,
-      CtSlot
+      CtSlot,
+      CtHeader,
+      Draggable
     }
   }
 </script>
@@ -164,10 +198,18 @@
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, .2);
   }
 
-  .formName {
-    font-size: 30px;
+  .formHeader {
     padding: 15px;
-
+    cursor: pointer;
+  }
+  .formName{
+    font-size: 30px;
+    color: #333;
+  }
+  .formDesc{
+    font-size: 14px;
+    padding:5px;
+    color: #999;
   }
 
   #control {
@@ -175,12 +217,18 @@
   }
 
   .null {
-    margin: 10px;
     padding: 5px 10px;
     color: #a94442;
+    margin:10px 0;
     background-color: #f2dede;
     border-radius: 10px;
     box-sizing: border-box;
   }
-
+  .control-content{
+    padding:0 20px;
+  }
+.dragArea{
+  width: 100%;
+  height: 545px;
+}
 </style>
