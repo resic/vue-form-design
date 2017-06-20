@@ -13,7 +13,8 @@ const state = {
       "componentKey": "label", "name": "标签名称",
       "classI": "el-icon-share",
       "longer": 8,
-      "label": "默认标签名"
+      "label": "默认标签名",
+      "high":"low"
     }, {
       "componentKey": "text", "name": "文本输入框",
       "classI": "el-icon-edit",
@@ -46,21 +47,22 @@ const state = {
       "textArray": "一行" + "\n" + "一个选项",
       "items": []
     }],
-    componentList2: [{"componentKey": "header", "formName": "表单名称", "formDesc": "表单描述","formNamePlace":"tl","formDescPlace":"tl"}],
-    showNum: -1,
+    componentList2: [{"componentKey": "header", "formName": "表单名称", "formDesc": "表单描述","formNamePlace":"tl","formDescPlace":"tl"},],
+    controlNum: -1,
     componentName: "",
-    addOrNot: 0
+    addOrNot: 0,
+    showName:"design"
   }
 }
 const mutations = {
   /**
    *控件设置信息的显示隐藏
    * */
-  hideControl(state){
-    state.design.showNum = -1
+  hide(state,obj){
+    state.design[obj.attr] = obj.index
   },
-  showControl(state, obj){
-    state.design.showNum = obj.index
+  show(state, obj){
+    state.design[obj.attr] = obj.index
   },
   /**
    *页面中更改值得操作，通过判定数组中的位置index更改ele类型的值为value

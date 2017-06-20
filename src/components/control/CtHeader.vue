@@ -18,16 +18,16 @@
       </el-form-item>
       <el-form-item label="表单名位置">
         <el-radio-group v-model="formNamePlace" >
-          <el-radio label="tl">左对齐</el-radio>
+          <el-radio label="tl">左</el-radio>
           <el-radio label="tc">居中</el-radio>
-          <el-radio label="tr">右对齐</el-radio>
+          <el-radio label="tr">右</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="表单描述位置">
         <el-radio-group v-model="formDescPlace" >
-          <el-radio label="tl">左对齐</el-radio>
+          <el-radio label="tl">左</el-radio>
           <el-radio label="tc">居中</el-radio>
-          <el-radio label="tr">右对齐</el-radio>
+          <el-radio label="tr">右</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>

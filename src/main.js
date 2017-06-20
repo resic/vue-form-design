@@ -79,7 +79,7 @@ Vue.directive('drag', {
           case "label":
             vm.$store.commit({
               type: "pushArray",
-              value: {"componentKey": "label", "longer": 8, "label": "默认标签名", "name": "标签名称", "classI": "el-icon-share"},
+              value: {"componentKey": "label", "longer": 8, "label": "默认标签名", "name": "标签名称", "classI": "el-icon-share","high":"low"},
             })
 
             break;

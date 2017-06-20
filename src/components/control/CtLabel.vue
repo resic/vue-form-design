@@ -3,8 +3,6 @@
     <el-form ref="form" label-width="100px">
       <div class="info" @mouseenter="change" @mouseleave="ret">
         控件使用说明
-
-
         <ul v-show="bur===1">
           <li>1.可通过调整控件长度控制所选组件长度</li>
           <li>2.标签名称字数限制最大为20个字</li>
@@ -16,6 +14,10 @@
       </el-form-item>
       <el-form-item label="标签名称">
         <el-input :maxlength="20" v-model="label"></el-input>
+      </el-form-item>
+      <el-form-item label="标签高度">
+        <el-radio class="radio" v-model="high" label="low">正常</el-radio>
+        <el-radio class="radio" v-model="high" label="tall">高</el-radio>
       </el-form-item>
       <el-form-item label="删除组件">
         <el-button type="danger"  @click="removeComponent">删除</el-button>
@@ -75,9 +77,21 @@
             index: this.serial
           })
         }
+      },
+      high:{
+        get () {
+          return this.$store.state.design.componentList2[this.serial].high
+        },
+        set (value) {
+          this.$store.commit({
+            type: "updateValue",
+            ele: "high",
+            value: value,
+            index: this.serial
+          })
+        }
       }
     }
-
   }
 </script>
 <style scoped>

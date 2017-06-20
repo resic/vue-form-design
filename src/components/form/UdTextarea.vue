@@ -2,7 +2,7 @@
   <div class="udTextarea">
    <el-col :span="design.componentList2[serial].longer">
      <div class="cover" :serial="serial" title="点击设置控件信息"></div>
-     <el-input type="textarea" :autosize="{minRows:3}" :placeholder="design.componentList2[serial].place"></el-input>
+     <el-input type="textarea" :autosize="{minRows:4}" :placeholder="design.componentList2[serial].place"></el-input>
    </el-col>
   </div>
 </template>
