@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div class="header">
-      <div class="title">睿达智能</div>
-    </div>
-    <router-view></router-view>
+ <router-view></router-view>
   </div>
 </template>
 
@@ -13,7 +10,9 @@
     data () {
       return {}
     },
-    methods: {},
+    methods: {
+
+    },
     components: {}
   }
 </script>
@@ -23,7 +22,9 @@
     margin: 0;
     padding: 0;
   }
-
+div{
+  box-sizing: border-box;
+}
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -41,7 +42,9 @@
   ol, ul {
     list-style: none
   }
-
+a{
+  text-decoration: none;
+}
   caption, th {
     text-align: left
   }
@@ -100,25 +103,32 @@
   .tr {
     text-align: right;
   }
-
-  .header {
+  #app{
+    position: absolute;
+    top:0;
+    bottom:0;
     width: 100%;
-    background-color: #199F93;
   }
 
-  .title {
-    height: 80px;
-    line-height: 80px;
-    font-size: 30px;
-    color: #fff;
-    font-weight: 700;
-  }
 
-  .el-col {
-    min-height: 59px;
-    border: 1px dashed #999;
-    border-radius: 5px;
-    padding: 10px;
-    position: relative;
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 4px;
+    background-color: #F5F5F5;
+  }
+  /*定义滚动条轨道 内阴影+圆角*/
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background: #fff ;
+  }
+  /*定义滑块 内阴影+圆角*/
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color:rgba(0, 0, 0, 0.1);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
   }
 </style>

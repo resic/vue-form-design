@@ -39,7 +39,7 @@ module.exports = {
       {
         test: /\.css$/,
         include: [
-          /src/,
+          '/src/',
           '/node_modules/element-ui/lib/'
         ],
         loader: 'style-loader!css-loader'

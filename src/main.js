@@ -4,9 +4,10 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import  Vuex from "vuex"
-import store from "./vuex/store"
+import store from "./views/oa/workflow/form/vuex/store"
 import App from './App.vue'
 import router from './router'
+import '@/assets/font-awesome-4.7.0/css/font-awesome.css'
 Vue.use(ElementUI)
 Vue.use(Vuex)
 
@@ -88,11 +89,13 @@ Vue.directive('drag', {
               type: "pushArray",
               value: {
                 "componentKey": "text",
-                "longer": 8,
-                "place": "单行placeholder信息",
-                "length": 50,
                 "name": "文本输入框",
-                "classI": "el-icon-edit"
+                "classI": "el-icon-edit",
+                "longer": 8,
+                "marks": "",
+                "value":"",
+                "place": "单行placeholder信息",
+                "length": 50
               },
             })
 
@@ -102,11 +105,13 @@ Vue.directive('drag', {
               type: "pushArray",
               value: {
                 "componentKey": "textarea",
-                "longer": 8,
-                "place": "多行占位信息",
-                "length": 200,
                 "name": "多行输入框",
-                "classI": "el-icon-edit"
+                "classI": "el-icon-edit",
+                "longer": 8,
+                "marks": "",
+                "value":"",
+                "place": "多行占位信息",
+                "length": 200
               },
             })
 
@@ -116,12 +121,13 @@ Vue.directive('drag', {
               type: "pushArray",
               value: {
                 "componentKey": "radio",
-                "longer": 8,
-                "radio": "",
-                "textArray": "一行" + "\n" + "一个选项",
-                "items": [],
                 "name": "单选框",
-                "classI": "el-icon-setting"
+                "classI": "el-icon-setting",
+                "longer": 8,
+                "marks": "",
+                "value": "",
+                "textArray": "一行" + "\n" + "一个选项",
+                "items": []
               },
             })
             break;
@@ -130,19 +136,20 @@ Vue.directive('drag', {
               type: "pushArray",
               value: {
                 "componentKey": "checkbox",
-                "longer": 8,
-                "checkList": [],
-                "textArray": "一行" + "\n" + "一个选项",
-                "items": [],
                 "name": "复选框",
-                "classI": "el-icon-circle-check"
+                "classI": "el-icon-circle-check",
+                "longer": 8,
+                "marks": "",
+                "value": [],
+                "textArray": "一行" + "\n" + "一个选项",
+                "items": []
               },
             })
             break;
           case "slot":
             vm.$store.commit({
               type: "pushArray",
-              value: {"componentKey": "slot", "longer": 8, "name": "占位框", "classI": "el-icon-menu"}
+              value: {"componentKey": "slot", "longer": 8, "name": "占位框", "classI": "el-icon-menu","high":"low"}
             })
             break;
           default:
@@ -174,7 +181,7 @@ Vue.directive('drag', {
   }
 })
 /* eslint-disable no-new */
-var vm = new Vue({
+const vm = new Vue({
   el: '#app',
   router,
   store,
